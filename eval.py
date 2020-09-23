@@ -6,6 +6,7 @@ import json
 import numpy as np
 
 import time
+import datetime
 import os
 from six.moves import cPickle
 
@@ -146,6 +147,15 @@ print('loss: ', loss)
 if lang_stats:
   print(lang_stats)
 
+opt.dump_json = 1 # output predictions
+
+# cur_time = datetime.now().strftime('%d-%m-%Y-%H:%M:%S')
+pred_file_name = 'textvqa_para.json'
+pred_file_dir = os.path.join(os.getcwd(), 'save')
+if not os.path.exists(pred_file_dir):
+  os.makedirs(pred_file_dir)
+pred_file_path = os.path.join(pred_file_dir, pred_file_name)
+
 if opt.dump_json == 1:
     # dump the json
-    json.dump(split_predictions, open('vis/vis.json', 'w'))
+    json.dump(split_predictions, open(pred_file_path, 'w'))

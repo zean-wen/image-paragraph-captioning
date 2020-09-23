@@ -86,9 +86,11 @@ class DataLoader(data.Dataset):
         self.iterators = {'train': 0, 'val': 0, 'test': 0}
         
         self._prefetch_process = {} # The three prefetch process
+        
         for split in self.iterators.keys():
             self._prefetch_process[split] = BlobFetcher(split, self, split=='train')
             # Terminate the child process when the parent exists
+        print(self._prefetch_process)
         def cleanup():
             print('Terminating BlobFetcher')
             for split in self.iterators.keys():
